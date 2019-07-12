@@ -3,12 +3,13 @@
     display: flex; 
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
  }
  #img { 
     display:block;
     margin:auto;
  }
+
  
  .devouredContainers {
     margin: 14px;
@@ -28,27 +29,37 @@
  
  }
  .submit {
-    height: 30px;
-    /* background-color: brown; */
-    background-color: black;
+    height: 40px;
+    background-color: brown;
     color: white;
     border-radius: 10px;
     display:flex;
+
+ }
+
+ .submit:hover {
+    height: 40px;
+    background-color: white;
+    color: brown;
+    border-radius: 10px;
+    display:flex;
+
  }
  .devouredBurger {
-    background-color: white;
+    background-color: brown;
     height: 75px;
     width: 150px;
     display: flex;
     font-size: 25px;
     justify-content: center;
     align-items: center;
-    color: red;
+    color:white;
     border-radius: 10px;
  }
+
  
  body {
-    background-image: linear-gradient(red, yellow, black);
+    background-image: linear-gradient(yellow, orange, red);
     background-repeat: no-repeat;  
     background-size: cover; 
  }
@@ -57,4 +68,3 @@
  #text-enter-button {
     background-color: brown;
  }
- 
