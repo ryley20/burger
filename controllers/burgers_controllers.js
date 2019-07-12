@@ -1,40 +1,33 @@
-
-// Node Dependencies
+// Dependencies
 var express = require('express');
 var router = express.Router();
-var burger = require('../models/burger.js');
+// Import the model (burger.js) to use its database functions.
+var burger = require("../models/burger.js");
 
-// Index Redirect
-router.get('/', function (req, res) {
-  res.redirect('/index');
+// Create all our routes and set up logic within those routes where required.
+  //GET request to grab database contents
+router.get("/", function(req, res) { //base route
+//  .selectAll(funcburgertion(burger_data) {
+  burger.selectAll(function(burger_data){
+    console.log(burger_data);
+    res.render("index",{burger_data}); //"index" is from the views folder
+  })
+});    
+
+//POST request to add a burger to the database
+router.post('/burgers/add', function(req, res) {
+    burger.insertOne(req.body.burger_name, function(result) {
+      res.redirect('/'); // to reflect update
+    });
 });
-
-
-// Index Page (render all burgers to DOM)
-router.get('/index', function (req, res) {
-  burger.selectAll(function(data) {
-    var hbsObject = { burgers: data };
-
-    res.render('index', hbsObject);
+  // PUT request to update a burger's status
+router.put('/burgers/update', function(req, res) {
+  burger.updateOne(req.body.burger_id, function(result) {
+    console.log(result)
+    res.redirect("/");
   });
 });
 
 
-// Create a New Burger
-router.post('/burger/create', function (req, res) {
-  burger.insertOne(req.body.burger_name, function() {
-    res.redirect('/index');
-  });
-});
-
-
-// Devour a Burger
-router.post('/burger/eat/:id', function (req, res) {
-  burger.updateOne(req.params.id, function() {
-    res.redirect('/index');
-  });
-});
-
-
-// Export routes
+// Export routes for server.js to use.
 module.exports = router;
