@@ -1,89 +1,29 @@
+// Import MySQL connection.
+var connection = require("./connection.js");
 
-// Import Node Dependencies
-var connection = require('./connection.js');
-
-
-
-
-// Connect to MySQL database
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  };
-  console.log('connected as id ' + connection.threadId);
-});
-
-
-
-
-var orm = {
-
-  selectAll: function(callback) {
-
-    connection.query('SELECT * FROM burgers', function (err, result) {
+// Then an object with all kind of methods is created. These methods are for all different things that we do with our data.
+ var orm = { //to collect all data from our database
+    selectAll: function(tableInput, cb) {
+     connection.query('SELECT * FROM ' + tableInput + ';', function(err, result) {
+       if (err) {
+         throw err;
+       }
+       cb(result);
+    })
+    },
+    insertOne: function(tableInput, val, cb) {
+      connection.query('INSERT INTO '+tableInput+" (burger_name) VALUES ('"+val+"');", function(err,result) {
+        if(err)throw err;
+        cb(result);
+      })
+    }, 
+    updateOne: function(tableInput, condition, cb) { 
+      connection.query('UPDATE '+ tableInput + ' SET devoured=true WHERE id='+ condition + ';', function(err, result) {
       if (err) throw err;
-      callback(result);
-    });
-
-  },
-
-  insertOne: function(burger_name, callback){
-
-    var d = new Date();
-    var timestamp = ''+ d.getFullYear() + '-'; // must be string
-    var month = '' + (d.getMonth() + 1); // must be string
-      // handle 1 digit months
-      if(month.length == 1){
-        month = '0' + month;
-      }
-    timestamp += month + '-';
-    var day = '' + d.getDate(); // must be string
-      if(day.length == 1){
-        day = '0' + day;
-      }
-    timestamp += day + ' ';
-    var hour = '' + d.getHours(); // must be string
-      if(hour.length == 1){
-        hour = '0' + hour;
-      }
-    timestamp += hour + ':';
-    var minute = '' + d.getMinutes(); // must be string
-
-      if(minute.length == 1){
-        minute = '0' + minute;
-      }
-    timestamp += minute + ':';
-    var second = '' + d.getSeconds(); // must be string
-
-      if(second.length == 1){
-        second = '0' + second;
-      }
-    timestamp += second;
-
-
-    // Run MySQL Query
-    connection.query('INSERT INTO burgers SET ?', {
-      burger_name: burger_name,
-      devoured: false,
-      date: timestamp
-    }, function (err, result) {
-      if (err) throw err;
-      callback(result);
-    });
-
-  },
-
-  updateOne: function(burgerID, callback){
-
-    connection.query('UPDATE burgers SET ? WHERE ?', [{devoured: true}, {id: burgerID}], function (err, result) {
-        if (err) throw err;
-        callback(result);
-      });
-
-  }
-
-};
-
-
-module.exports = orm;
+      cb(result);
+      })
+    }
+ };
+ 
+ // Export the orm object for the module (burger.js).
+ module.exports = orm; 
