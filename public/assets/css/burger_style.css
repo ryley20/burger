@@ -29,7 +29,8 @@
  }
  .submit {
     height: 30px;
-    background-color: brown;
+    /* background-color: brown; */
+    background-color: black;
     color: white;
     border-radius: 10px;
     display:flex;
@@ -47,7 +48,7 @@
  }
  
  body {
-    background-image: linear-gradient(red, yellow);
+    background-image: linear-gradient(red, yellow, black);
     background-repeat: no-repeat;  
     background-size: cover; 
  }

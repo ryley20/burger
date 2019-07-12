@@ -1,11 +1,11 @@
-<!-- Here goes the majority of the handlebars code -->
+
 <div class="container">
   <div class= "row">
     <div class="col-xl-12 text-center" id="top-bar">
-      <h1>Extra Delicious Burgers...EAT IT!</h1>
+      <h1>Extra Delicious Burgers...EAT ONE!</h1>
     </div>
   </div> <!-- end of first row--> 
-  <img id="img" src="/assets/img/burger.jpg" width="200px" heigth="200px">
+  <img id="img" src="/assets/img/burger.jpg" width="230px" heigth="230px">
   <div class="col-xl-12 text-center" class="task">
     <div class="row d-flex">
       {{#each burger_data}}
@@ -20,7 +20,7 @@
           <form method="POST" action="/burgers/update?_method=PUT" class="button-size">
             <input type="hidden" name="burger_id" type="text" value={{this.id}}>
             <br>
-            <button type="submit" class="btn btn-default submit">EAT IT!</button>
+            <button type="submit" class="btn btn-default submit">EAT ONE</button>
           </form>
         </div>
       </div>
@@ -43,8 +43,8 @@
   <div class="row">
     <div class="col-xl-6 text-center enter_section" style="margin:auto">
       <form action="/burgers/add" method="POST">
-        <input type="text" name="burger_name" class="form-control" value="" id="enter_text" placeholder="Enter in 'My way burger' you would like to eat">
-        <button type="submit" class="btn btn-primary" id="text-enter-button">ADD IT</button>   
+        <input type="text" name="burger_name" class="form-control" value="" id="enter_text" placeholder="Enter your own burger">
+        <button type="submit" class="btn btn-primary" id="text-enter-button">ADD BURGER</button>   
       </form>
     </div>
   </div>
